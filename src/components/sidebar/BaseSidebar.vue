@@ -14,19 +14,33 @@ export default {
     data () {
         return{
             sidebars:[
-                {id:1,label:'Label 1',icon:'dashboard',children:[],to:'/'},
-                {id:2,label:'Label 2',icon:'dashboard',children:[
-                    {id:3,label:'Label 3',icon:'',children:[],to:'/'},
-                    {id:4,label:'Label 4',icon:'dashboard',children:[
-                        {id:1,label:'Label 1',icon:'dashboard',children:[
-                            {id:1,label:'Label 1',icon:'dashboard',children:[
-                                {id:1,label:'Label 1',icon:'dashboard',children:[],to:'/'}
-                            ],to:'/'}
-                        ],to:'/'}
-                    ],to:'/'},
-                    {id:5,label:'Label 5',icon:'dashboard',children:[],to:'/'},
-                    {id:6,label:'Label 6',icon:'dashboard',children:[],to:'/'}
-                ],to:'/'}
+                {id:1,label:'Dashboard',icon:'dashboard',children:[],to:'/'},
+                {id:1,label:'Company Information',icon:'dashboard',children:[],to:'/'},
+                {id:2,label:'Master Data',icon:'dashboard',children:[
+                    {id:3,label:'Rack Data',icon:'dashboard',children:[],to:'/'},
+                    {id:4,label:'Product Data',icon:'dashboard',children:[],to:'/'},
+                ],to:'/'},
+                {id:1,label:'Locations',icon:'dashboard',children:[],to:'/'},
+                {id:1,label:'Transactions',icon:'dashboard',children:[
+                    {id:1,label:'Stock In',icon:'dashboard',children:[],to:'/'},
+                    {id:1,label:'Stock Out',icon:'dashboard',children:[],to:'/'},
+                    {id:1,label:'Permanent Out',icon:'dashboard',children:[],to:'/'},
+                    {id:1,label:'RFID Registration',icon:'dashboard',children:[],to:'/'},
+                    {id:1,label:'Stock Opname',icon:'dashboard',children:[],to:'/'},
+                ],to:'/'},
+                {id:1,label:'Report',icon:'dashboard',children:[
+                    {id:1,label:'All Asset',icon:'dashboard',children:[],to:'/'},
+                    {id:1,label:'Stock In',icon:'dashboard',children:[],to:'/'},
+                    {id:1,label:'Stock Out',icon:'dashboard',children:[],to:'/'},
+                    {id:1,label:'Permanent Out',icon:'dashboard',children:[],to:'/'},
+                    {id:1,label:'Registration',icon:'dashboard',children:[],to:'/'},
+                    {id:1,label:'Stock Opname',icon:'dashboard',children:[],to:'/'},
+                    {id:1,label:'Latest Placement',icon:'dashboard',children:[],to:'/'},
+                ],to:'/'},
+                {id:1,label:'Management',icon:'dashboard',children:[
+                    {id:1,label:'User Management',icon:'dashboard',children:[],to:'/'},
+                    {id:1,label:'Application Settings',icon:'dashboard',children:[],to:'/'},
+                ],to:'/'},
             ]
         }
     }
