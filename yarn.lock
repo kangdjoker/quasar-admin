@@ -5052,6 +5052,26 @@ lazystream@^1.0.0:
   dependencies:
     readable-stream "^2.0.5"
 
+leaflet-arrowheads@^1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/leaflet-arrowheads/-/leaflet-arrowheads-1.2.3.tgz#3387d0e206426d63d52ef5cf3307ccb8d8db700a"
+  integrity sha512-AbsMcGLQv+X2vc3sVQrdl9GHB6uNRqJT8yKg9HAy0pq5Vuy0drJufTbD7H0sixx3F/ylR5zOA8hXIojyZXPxhA==
+  dependencies:
+    leaflet "^1.6.0"
+    leaflet-geometryutil "^0.9.3"
+
+leaflet-geometryutil@^0.9.3:
+  version "0.9.3"
+  resolved "https://registry.yarnpkg.com/leaflet-geometryutil/-/leaflet-geometryutil-0.9.3.tgz#e10fa302d99d4b1d3c6365a1f39298635a2704cd"
+  integrity sha512-Wi6YvfNx/Xu9q35AEfXpsUXmIFLen/MO+C2qimxHRnjyeyOxBhdcZa6kSiReaOX0cGK7yQInqrzz0dkIqZ8Dpg==
+  dependencies:
+    leaflet ">=0.7.0"
+
+leaflet@>=0.7.0, leaflet@^1.6.0, leaflet@^1.7.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.7.1.tgz#10d684916edfe1bf41d688a3b97127c0322a2a19"
+  integrity sha512-/xwPEBidtg69Q3HlqPdU3DnrXQOvQU/CCHA1tcDQVzOwm91YMYaILjNp7L4Eaw5Z4sOYdbBz6koWyibppd8Zqw==
+
 loader-runner@^2.4.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/loader-runner/-/loader-runner-2.4.0.tgz#ed47066bfe534d7e84c4c7b9998c2a75607d9357"
@@ -8288,6 +8308,11 @@ vue-template-es2015-compiler@^1.9.0:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
+
+vue2-leaflet@^2.7.1:
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/vue2-leaflet/-/vue2-leaflet-2.7.1.tgz#2f95c287621bf778f10804c88223877f5c049257"
+  integrity sha512-K7HOlzRhjt3Z7+IvTqEavIBRbmCwSZSCVUlz9u4Rc+3xGCLsHKz4TAL4diAmfHElCQdPPVdZdJk8wPUt2fu6WQ==
 
 vue@2.6.12:
   version "2.6.12"
