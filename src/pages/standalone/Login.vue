@@ -63,10 +63,8 @@
                 if(this.loading)return;
                 this.loading = true;
                 this.$services.loginUser(this.username,this.password,(res)=>{
-                  AppUtils.saveUser(res.data)
-                  console.log('SUCCESS',JSON.stringify(d))
+                  this.$router.replace('/')
                 },(e)=>{
-                    console.log('ERROR',JSON.stringify(e))
                 },()=>{
                   this.loading = false
                 })

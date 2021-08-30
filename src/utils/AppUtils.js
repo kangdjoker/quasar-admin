@@ -45,9 +45,9 @@ export default {
     console.log('SAVE USER',JSON.stringify(user))
     LocalStorage.set('user',JSON.stringify(user));
   },
-  saveProfile(profile){
-    console.log('SAVE PROFILE',JSON.stringify(profile))
-    LocalStorage.set('profile',JSON.stringify(profile));
+  saveSidebar(sidebar){
+    console.log('SAVE Sidebar',JSON.stringify(sidebar))
+    LocalStorage.set('sidebar',JSON.stringify(sidebar));
   },
   getUser () {
     const user = LocalStorage.getItem('user')
@@ -56,10 +56,10 @@ export default {
     }
     return null
   },
-  getProfile () {
-    const profile = LocalStorage.getItem('profile')
-    if (typeof profile !=='undefined' && profile !== null && profile !== '') {
-      return JSON.parse(profile)
+  getSidebar () {
+    const sidebar = LocalStorage.getItem('sidebar')
+    if (typeof sidebar !=='undefined' && sidebar !== null && sidebar !== '') {
+      return JSON.parse(sidebar)
     }
     return null
   },

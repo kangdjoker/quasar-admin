@@ -5,11 +5,15 @@
     </q-list>
 </template>
 <script>
+import AppUtils from 'src/utils/AppUtils'
 import ItemSidebar from './ItemSidebar.vue'
 export default {
     name: 'BaseSidebar',
     components: {
         ItemSidebar
+    },
+    mounted(){
+        this.sidebars = AppUtils.getSidebar()
     },
     data () {
         return{

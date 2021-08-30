@@ -37,7 +37,7 @@ function apiCall (method, url, data, onSuccess, onFailed, onFinish,onUploadProgr
   instance({
     method: method,
     headers: {
-      'Token-Access': token,
+      'xtoken': token,
       'DeviceID': AppUtils.getDeviceID()
     },
     data: data,
@@ -72,7 +72,14 @@ export default{
     apiCall('post','/auth/login', {username:username,password:password}, (user) => {
       console.log('USER',JSON.stringify(user));
       AppUtils.saveUser(user.data)
-      onSuccess(user)
+      apiCall('get','/sidebar', {}, (sidebar) => {
+        console.log('SIDEBAR',JSON.stringify(sidebar));
+        AppUtils.saveSidebar(sidebar.data)
+        onSuccess(user)
+      }, (err)=>{
+        AppUtils.clearUser()
+        onFailed(err)
+      }, onFinish)
     }, (err)=>{
       AppUtils.clearUser()
       onFailed(err)
