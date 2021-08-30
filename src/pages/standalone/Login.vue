@@ -38,7 +38,7 @@
               <div>
                 <q-btn label="Login" @click="doLogin" type="button" class="bg-green-8 text-white q-ml-sm q-mb-xs" :loading="loading">
                   <template v-slot:loading>
-                    <q-spinner-hourglass class="center" />
+                    <q-spinner-dots class="center" />
                   </template>
                 </q-btn>
               </div>
@@ -54,6 +54,7 @@
     import AppUtils from "src/utils/AppUtils";
     export default {
         mounted(){
+          this.$services.assignInstanceSystem(this)
             AppUtils.clearUser()
         },
         methods:{
@@ -61,8 +62,9 @@
                 console.log('doLogin')
                 if(this.loading)return;
                 this.loading = true;
-                this.$services.loginUser(this.username,this.password,(d)=>{
-                    console.log('SUCCESS',JSON.stringify(d))
+                this.$services.loginUser(this.username,this.password,(res)=>{
+                  AppUtils.saveUser(res.data)
+                  console.log('SUCCESS',JSON.stringify(d))
                 },(e)=>{
                     console.log('ERROR',JSON.stringify(e))
                 },()=>{

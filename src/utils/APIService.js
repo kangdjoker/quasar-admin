@@ -45,11 +45,20 @@ function apiCall (method, url, data, onSuccess, onFailed, onFinish,onUploadProgr
     onUploadProgress:onUploadProgress
   })
     .then(response => {
+      console.log('apicall:then')
       return handleSuccess(response, onSuccess, onFailed, onFinish)
     })
     .catch(error => {
-      if(typeof error !== 'undefined' && error!==null && typeof error.response!=='undefined' && error.response!==null && parseInt(error.response.status)===401){
-        instanceSystem.$router.replace('/login')
+      console.log('apicall:error')
+      if(typeof error !== 'undefined' && error!==null && typeof error.response!=='undefined' && error.response!==null){
+        switch(parseInt(error.response.status)){
+          case 401:
+            instanceSystem.$router.replace('/login')
+            break;
+          case 422:
+            AppUtils.errorNotification(instanceSystem,error.response.data.message)
+            break;
+        }
       }
       return handleError(error, onSuccess, onFailed, onFinish)
     })
