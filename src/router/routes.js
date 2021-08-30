@@ -31,27 +31,31 @@ const routes = [
     ]
   },
   {
-    path: '/Lock',
+    path: '/login',
+    component: () => import('pages/standalone/Login.vue')
+  },
+  {
+    path: '/template-lock',
     component: () => import('pages/LockScreen.vue')
   },
   {
-    path: '/Maintenance',
+    path: '/template-maintenance',
     component: () => import('pages/Maintenance.vue')
   },
   {
-    path: '/Pricing',
+    path: '/template-pricing',
     component: () => import('pages/Pricing.vue')
   },
   {
-    path: '/Login-1',
+    path: '/template-login-1',
     component: () => import('pages/Login-1.vue')
   },
   {
-    path: '/Mail',
+    path: '/template-mail',
     component: () => import('layouts/Mail.vue')
   },
   {
-    path: '/Lock-2',
+    path: '/template-lock-2',
     component: () => import('pages/LockScreen-2.vue')
   }
 ]
