@@ -56,22 +56,22 @@ function apiCall (method, url, data, onSuccess, onFailed, onFinish,onUploadProgr
 }
 
 export default{
-//   assignInstanceSystem(instance){
-//     instanceSystem = instance
-//   },
-//   loginUser(username,password,onSuccess,onFailed,onFinish){
-//     apiCall('post','/auth/login', {username:username,password:password}, (user) => {
-//       console.log('USER',JSON.stringify(user));
-//       AppUtils.saveUser(user.data)
-//       onSuccess(user)
-//     }, (err)=>{
-//       AppUtils.clearUser()
-//       onFailed(err)
-//     }, onFinish)
-//   },  
-//   uploadAvatar(files,onUploadProgress,onSuccess,onFailed,onFinish){
-//     const data = new FormData()
-//     data.append('avatar', files[0])
-//     apiCall('post','/selfservice/upload/avatar',data,onSuccess,onFailed,onFinish,onUploadProgress)
-//   },  
+  assignInstanceSystem(instance){
+    instanceSystem = instance
+  },
+  loginUser(username,password,onSuccess,onFailed,onFinish){
+    apiCall('post','/auth/login', {username:username,password:password}, (user) => {
+      console.log('USER',JSON.stringify(user));
+      AppUtils.saveUser(user.data)
+      onSuccess(user)
+    }, (err)=>{
+      AppUtils.clearUser()
+      onFailed(err)
+    }, onFinish)
+  },  
+  uploadAvatar(files,onUploadProgress,onSuccess,onFailed,onFinish){
+    const data = new FormData()
+    data.append('avatar', files[0])
+    apiCall('post','/selfservice/upload/avatar',data,onSuccess,onFailed,onFinish,onUploadProgress)
+  },  
 }

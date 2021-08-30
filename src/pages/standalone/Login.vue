@@ -36,7 +36,11 @@
               />
 
               <div>
-                <q-btn label="Login" @click="doLogin" type="button" color="primary"/>
+                <q-btn label="Login" @click="doLogin" type="button" class="bg-green-8 text-white q-ml-sm q-mb-xs" :loading="loading">
+                  <template v-slot:loading>
+                    <q-spinner-hourglass class="center" />
+                  </template>
+                </q-btn>
               </div>
             </q-form>
           </q-card-section>
@@ -47,16 +51,30 @@
 </template>
 
 <script>
+    import AppUtils from "src/utils/AppUtils";
     export default {
+        mounted(){
+            AppUtils.clearUser()
+        },
         methods:{
             doLogin(){
-                
+                console.log('doLogin')
+                if(this.loading)return;
+                this.loading = true;
+                this.$services.loginUser(this.username,this.password,(d)=>{
+                    console.log('SUCCESS',JSON.stringify(d))
+                },(e)=>{
+                    console.log('ERROR',JSON.stringify(e))
+                },()=>{
+                  this.loading = false
+                })
             }
         },
         data() {
             return {
-                username: 'administrator',
-                password: '4344d64a425b06cf311918a7772e6e4d'
+              loading:false,
+              username: 'administrator',
+              password: '4344d64a425b06cf311918a7772e6e4d'
             }
         },
     }
