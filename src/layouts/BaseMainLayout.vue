@@ -68,6 +68,7 @@
     import BaseSidebar from 'components/sidebar/BaseSidebar'
     import Messages from "./Messages";
     import AppUtils from "src/utils/AppUtils";
+import APIService from 'src/utils/APIService';
 
     export default {
         name: 'MainLayout',
@@ -78,6 +79,7 @@
             BaseSidebar,
         },
         mounted(){
+          APIService.assignInstanceSystem(this)
           this.name = process.env.BASE_NAME.split('"').join('')
         },
         data() {
