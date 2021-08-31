@@ -11,7 +11,7 @@
           aria-label="Menu"
         />
         <q-toolbar-title>
-          Quasar App
+          {{this.name}}
         </q-toolbar-title>
         <q-space/>
         <div class="q-gutter-sm row items-center no-wrap">
@@ -67,6 +67,7 @@
     import EssentialLink from 'components/EssentialLink'
     import BaseSidebar from 'components/sidebar/BaseSidebar'
     import Messages from "./Messages";
+    import AppUtils from "src/utils/AppUtils";
 
     export default {
         name: 'MainLayout',
@@ -76,9 +77,12 @@
             EssentialLink,
             BaseSidebar,
         },
-
+        mounted(){
+          this.name = process.env.BASE_NAME.split('"').join('')
+        },
         data() {
             return {
+              name:'',
                 leftDrawerOpen: false,
             }
         }
