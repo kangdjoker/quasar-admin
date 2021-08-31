@@ -42,6 +42,26 @@
             <q-avatar size="26px">
               <img src="https://cdn.quasar.dev/img/boy-avatar.png">
             </q-avatar>
+            <q-menu
+            >
+              <q-list style="min-width: 100px">
+                <card-profile-top
+                  :user="user"
+                ></card-profile-top>
+                <q-separator class="bg-grey"/>
+                <q-item to="/user-profile" active-class="q-item-no-link-highlighting">
+                  <q-item-section>
+                    <q-item-label>User Profile</q-item-label>
+                  </q-item-section>
+                </q-item>
+                <q-separator class="bg-grey"/>
+                <q-item to="/logout" active-class="q-item-no-link-highlighting">
+                  <q-item-section>
+                    <q-item-label>Log Out</q-item-label>
+                  </q-item-section>
+                </q-item>
+              </q-list>
+            </q-menu>
           </q-btn>
         </div>
       </q-toolbar>
@@ -68,12 +88,14 @@
     import BaseSidebar from 'components/sidebar/BaseSidebar'
     import Messages from "./Messages";
     import AppUtils from "src/utils/AppUtils";
+    import CardProfileTop from "./template/CardProfileTop"
 import APIService from 'src/utils/APIService';
 
     export default {
         name: 'MainLayout',
 
         components: {
+            CardProfileTop,
             Messages,
             EssentialLink,
             BaseSidebar,
@@ -81,11 +103,13 @@ import APIService from 'src/utils/APIService';
         mounted(){
           APIService.assignInstanceSystem(this)
           this.name = process.env.BASE_NAME.split('"').join('')
+          this.user = AppUtils.getUser()
         },
         data() {
             return {
+              user:{},
               name:'',
-                leftDrawerOpen: false,
+              leftDrawerOpen: false,
             }
         }
     }
