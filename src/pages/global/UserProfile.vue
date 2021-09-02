@@ -213,12 +213,12 @@ export default {
       this.loadingUpdateProfile = true
       this.$services.changeProfile(
         this.user.avatar,
-        this.user.name,
         this.user.phone,
-        this.user.position,
-        this.user.unit,
         (data)=>{
-          AppUtils.saveUser(this.user)
+          let leUser = AppUtils.getUser();
+          leUser.avatar = this.user.avatar;
+          leUser.phone = this.user.phone;
+          AppUtils.saveUser(leUser)
           AppUtils.successNotification(this,'Change profile success')
         },(err)=>{
 
@@ -237,6 +237,7 @@ export default {
       }else{
         this.password_dict.error_new = false;
       }
+      this.changePasswordConfirmation()
     },
     changePasswordConfirmation(){
       console.log('changePasswordConfirmation')
@@ -252,23 +253,20 @@ export default {
       }else{
         this.loadingUpdatePassword = true
         this.$services.changePassword(this.password_dict.old_password,this.password_dict.new_password,(data)=>{
-          console.log('SUCCESS',JSON.stringify(data));
-          if(data.status === -1){
-            if(data.data.code === 3){
-              AppUtils.showGenericDialog('Error',data.data.message);
-              this.errormessage_password_old = data.data.message;
-            }
-          }else if(data.status === 1){
-            this.password_dict.old_password = ''
-            this.password_dict.new_password = ''
-            this.password_dict.confirm_new_password = ''
-            AppUtils.showGenericDialog('Success','Change password success!');
-          }else{
-            AppUtils.showGenericDialog('Success','Unknown error');
-          }
+          this.password_dict.old_password = ''
+          this.password_dict.new_password = ''
+          this.password_dict.confirm_new_password = ''
+
+          let leUser = AppUtils.getUser();
+          leUser.password_expired = data.data.password_expired;
+          leUser.pass_expired_reminder = data.data.pass_expired_reminder;
+          AppUtils.saveUser(leUser)
+          this.user = leUser;
+          AppUtils.successNotification(this,'Change password success!');
         },(err)=>{
 
         },()=>{
+          AppUtils.mainLayout().refreshUserData()
           this.loadingUpdatePassword = false
         })
       }

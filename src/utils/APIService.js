@@ -90,8 +90,14 @@ export default{
     data.append('avatar', files[0])
     apiCall('post','/upload/avatar',data,onSuccess,onFailed,onFinish,onUploadProgress)
   },
-  changeProfile(avatar,name,phone,position,unit,onSuccess,onFailed,onFinish){
+  changeProfile(avatar,phone,onSuccess,onFailed,onFinish){
     apiCall('patch','/user/profile', {avatar:avatar,phone:phone}, (data) => {
+      // AppUtils.saveProfile(data)
+      onSuccess(data)
+    }, onFailed, onFinish)
+  },
+  changePassword(oldPassword,newPassword,onSuccess,onFailed,onFinish){
+    apiCall('patch','/user/password', {password:newPassword,last_password:oldPassword}, (data) => {
       // AppUtils.saveProfile(data)
       onSuccess(data)
     }, onFailed, onFinish)
