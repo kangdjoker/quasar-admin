@@ -88,6 +88,12 @@ export default{
   uploadAvatar(files,onUploadProgress,onSuccess,onFailed,onFinish){
     const data = new FormData()
     data.append('avatar', files[0])
-    apiCall('post','/selfservice/upload/avatar',data,onSuccess,onFailed,onFinish,onUploadProgress)
-  },  
+    apiCall('post','/upload/avatar',data,onSuccess,onFailed,onFinish,onUploadProgress)
+  },
+  changeProfile(avatar,name,phone,position,unit,onSuccess,onFailed,onFinish){
+    apiCall('patch','/user/profile', {avatar:avatar,phone:phone}, (data) => {
+      // AppUtils.saveProfile(data)
+      onSuccess(data)
+    }, onFailed, onFinish)
+  },
 }

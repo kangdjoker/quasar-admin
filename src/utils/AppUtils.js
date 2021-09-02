@@ -21,6 +21,9 @@ Date.prototype.yyyymmdd = function() {
 };
 
 export default {
+  mainLayout(){
+    // TODO OVERRIDE
+  },
   successNotification(instance,text){
     instance.$q.notify({
       type: 'positive',

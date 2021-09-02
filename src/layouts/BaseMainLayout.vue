@@ -85,7 +85,7 @@
 import APIService from 'src/utils/APIService';
 
     export default {
-        name: 'MainLayout',
+        name: 'BaseMainLayout',
 
         components: {
             CardProfileTop,
@@ -93,11 +93,21 @@ import APIService from 'src/utils/APIService';
             EssentialLink,
             BaseSidebar,
         },
+        methods:{
+          refreshUserData(){
+            this.user = AppUtils.getUser()
+            this.profile = AppUtils.getProfile()
+          },
+        },
         mounted(){
           APIService.assignInstanceSystem(this)
           this.name = process.env.BASE_NAME.split('"').join('')
           this.user = AppUtils.getUser()
-          if(parseInt(this.user.pass_expired.reminder)===1) AppUtils.errorNotification(this,"Your password will be expired soon. Please change your password immediately.")
+          if(parseInt(this.user.pass_expired_reminder)===1) AppUtils.errorNotification(this,"Your password will be expired soon. Please change your password immediately.")
+          let instance = this
+          AppUtils.mainLayout = function(){
+            return instance
+          }
         },
         data() {
             return {

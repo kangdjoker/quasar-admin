@@ -46,7 +46,7 @@
               </q-item>
               <q-item class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <q-item-section>
-                  <q-input dark color="white" dense v-model="user.name" label="Name"/>
+                  <q-input dark color="white" dense v-model="user.name" label="Name" disable/>
                 </q-item-section>
               </q-item>
               <q-item class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -90,7 +90,7 @@
             </q-item>
             <q-item class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
               <q-item-section>
-                <q-input type="password" dark dense outlined color="white" round v-model="user.password_expired" disable
+                <q-input type="text" dark dense outlined color="white" round v-model="user.password_expired" disable
                          label="Password Expired"/>
               </q-item-section>
             </q-item>
@@ -219,7 +219,7 @@ export default {
         this.user.unit,
         (data)=>{
           AppUtils.saveUser(this.user)
-          AppUtils.showGenericDialog('Success','Change profile success')
+          AppUtils.successNotification(this,'Change profile success')
         },(err)=>{
 
         },()=>{
