@@ -97,6 +97,7 @@ import APIService from 'src/utils/APIService';
           APIService.assignInstanceSystem(this)
           this.name = process.env.BASE_NAME.split('"').join('')
           this.user = AppUtils.getUser()
+          if(parseInt(this.user.pass_expired.reminder)===1) AppUtils.errorNotification(this,"Your password will be expired soon. Please change your password immediately.")
         },
         data() {
             return {

@@ -45,6 +45,10 @@ export default {
     console.log('SAVE USER',JSON.stringify(user))
     LocalStorage.set('user',JSON.stringify(user));
   },
+  saveProfile(profile){
+    console.log('SAVE PROFILE',JSON.stringify(profile))
+    LocalStorage.set('profile',JSON.stringify(profile));
+  },
   saveSidebar(sidebar){
     console.log('SAVE Sidebar',JSON.stringify(sidebar))
     LocalStorage.set('sidebar',JSON.stringify(sidebar));
@@ -53,6 +57,13 @@ export default {
     const user = LocalStorage.getItem('user')
     if (typeof user !=='undefined' && user !== null && user !== '') {
       return JSON.parse(user)
+    }
+    return null
+  },
+  getProfile () {
+    const profile = LocalStorage.getItem('profile')
+    if (typeof profile !=='undefined' && profile !== null && profile !== '') {
+      return JSON.parse(profile)
     }
     return null
   },

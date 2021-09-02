@@ -5,6 +5,7 @@ const routes = [
     children: [
       {path: '', component: () => import('pages/global/Dashboard.vue')},
       {path: '/logout', component: () => import('pages/global/Logout.vue')},
+      {path: '/user-profile', component: () => import('pages/global/UserProfile.vue')},
       {path: '/master/location', component: () => import('pages/master/MasterLocation.vue')},
     ]
   },
