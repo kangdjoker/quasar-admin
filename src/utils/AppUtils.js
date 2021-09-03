@@ -21,6 +21,9 @@ Date.prototype.yyyymmdd = function() {
 };
 
 export default {
+  tableGetPagination(){
+    return {rowsPerPage:50,page:1}
+  },
   mainLayout(){
     // TODO OVERRIDE
   },

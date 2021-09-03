@@ -102,4 +102,7 @@ export default{
       onSuccess(data)
     }, onFailed, onFinish)
   },
+  getListUser(pagination,onSuccess,onFailed,onFinish){
+    apiCall('post','/user/list',pagination,onSuccess,onFailed,onFinish)
+  },
 }
