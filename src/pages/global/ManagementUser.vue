@@ -32,6 +32,11 @@
             <q-btn class="q-ml-xs" icon="filter_list" @click="userFilterShow=!userFilterShow" flat/>
             <q-btn class="q-ml-xs" icon="add" @click="showDialogAdd()" flat v-if="user.code==='superadmin'"/>
           </template>
+          <template v-slot:body-cell-menu_count="props">
+            <q-td :props="props">
+              <a style="text-decoration: underline;" @click="showMenus(props.row)" >{{props.row.menu_count}}</a>
+            </q-td>
+          </template>
           <template v-slot:body-cell-action="props">
             <q-td :props="props">
               <div>
@@ -41,7 +46,7 @@
                   icon="edit"
                   @click="showDialogEdit(props.row)" flat>
                   <q-tooltip
-                    anchor="bottom right" self="top right">Ubah</q-tooltip>
+                    anchor="bottom right" self="top right">Edit</q-tooltip>
                 </q-btn>
                 <q-btn
                   class="q-mx-xs"
@@ -50,7 +55,7 @@
                   v-if="!props.row.is_active"
                   @click="showDialogActive(props.row)" flat>
                   <q-tooltip
-                    anchor="bottom right" self="top right">Aktivasi</q-tooltip>
+                    anchor="bottom right" self="top right">Activate</q-tooltip>
                 </q-btn>
                 <q-btn
                   class="q-mx-xs"
@@ -59,7 +64,7 @@
                   v-if="props.row.is_active"
                   @click="showDialogDelete(props.row)" flat>
                   <q-tooltip
-                    anchor="bottom right" self="top right">De-Aktivasi</q-tooltip>
+                    anchor="bottom right" self="top right">De-Activate</q-tooltip>
                 </q-btn>
                 <q-btn
                   class="q-mx-xs"
@@ -75,6 +80,37 @@
         </q-table>
       </q-card-section>
     </q-card>
+    <q-dialog v-model="menu.dialog" >
+      <q-card dark style="width: 700px; max-width: 80vw;">
+        <q-toolbar>
+          <q-toolbar-title><span class="text-h6">Allowed Menu</span></q-toolbar-title>
+          <q-btn
+            flat
+            round
+            dense
+            icon="close"
+            size="0.7em"
+            v-close-popup>
+            <q-tooltip>
+              Close
+            </q-tooltip>
+          </q-btn>
+        </q-toolbar>
+        <q-separator dark/>
+        <q-card-section class="q-pa-none ">
+          <q-table
+            dark
+            :data="menus"
+            :columns="menuColumns"
+            row-key="id"
+            :rows-per-page-options="[50]"
+            class="bg-primary text-white"
+            :loading="userLoading"
+          >
+          </q-table>
+        </q-card-section>
+      </q-card>
+    </q-dialog>
     <q-dialog v-model="edit.dialog" persistent>
       <q-card dark>
         <q-toolbar>
@@ -87,7 +123,7 @@
             size="0.7em"
             v-close-popup>
             <q-tooltip>
-              Tutup
+              Close
             </q-tooltip>
           </q-btn>
         </q-toolbar>
@@ -161,7 +197,7 @@
     <q-dialog v-model="add.dialog" persistent>
       <q-card dark>
         <q-toolbar>
-          <q-toolbar-title><span class="text-h6">Tambah Pengguna</span></q-toolbar-title>
+          <q-toolbar-title><span class="text-h6">Add User</span></q-toolbar-title>
           <q-btn
             flat
             round
@@ -170,7 +206,7 @@
             size="0.7em"
             v-close-popup>
             <q-tooltip>
-              Tutup
+              Close
             </q-tooltip>
           </q-btn>
         </q-toolbar>
@@ -257,7 +293,7 @@
     <q-dialog v-model="password.dialog" persistent>
       <q-card dark>
         <q-toolbar>
-          <q-toolbar-title><span class="text-h6">Ganti Password</span></q-toolbar-title>
+          <q-toolbar-title><span class="text-h6">Change Password</span></q-toolbar-title>
           <q-btn
             flat
             round
@@ -266,7 +302,7 @@
             size="0.7em"
             v-close-popup>
             <q-tooltip>
-              Tutup
+              Close
             </q-tooltip>
           </q-btn>
         </q-toolbar>
@@ -331,6 +367,16 @@ export default {
     this.$services.logThis('Open User Management')
   },
   methods:{
+    showMenus(row){
+      this.$services.getListMenu((res)=>{
+        this.menus = res.data
+        this.menu.dialog = true
+      },(e)=>{
+
+      },()=>{
+
+      })
+    },
     showDialogPassword(row){
       this.password.id = row.id
       this.password.dialog = true
@@ -492,6 +538,16 @@ export default {
   },
   data(){
     let data = {
+      menus:[],
+      menuColumns:[
+        {name: 'name', label: 'Name', field: row => row.name, format: val => `${val}`, sortable: false, align: 'left'},
+        {name: 'description', label: 'Description', field: row => row.description, format: val => `${val}`, sortable: false, align: 'left'},
+        {name: 'method', label: 'Method', field: row => row.method, format: val => `${val}`, sortable: false, align: 'left'},
+        {name: 'path', label: 'Path', field: row => row.path, format: val => `${val}`, sortable: false, align: 'left'},
+      ],
+      menu:{
+        dialog:false
+      },
       pagination:AppUtils.tableGetPagination(),
       codes:['SuperAdmin','Admin','Operator'],
       password:{
@@ -552,13 +608,12 @@ export default {
         {name: 'time_update', label: 'Time Update', field: row => row.time_update, format: val => `${val}`, sortable: false, align: 'left'},
         {name: 'password_expired', label: 'Password Expired', field: row => row.password_expired, format: val => `${val}`, sortable: false, align: 'left'},
         {name: 'is_active', label: 'Active?', field: row => (''+row.is_active).toUpperCase(), format: val => `${val}`, sortable: false, align: 'center'},
-        
+        {name: 'action', align: 'center', label: 'Aksi', field: 'action' },        
       ],
       userFilter:'',
       userFilterShow:false,
       user:AppUtils.getUser()
     }
-    if(data.user.code==='superadmin')data.userColumns.push({ name: 'action', align: 'center', label: 'Aksi', field: 'action' })
     return data
   }
 }

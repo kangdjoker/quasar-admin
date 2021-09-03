@@ -105,4 +105,7 @@ export default{
   getListUser(pagination,onSuccess,onFailed,onFinish){
     apiCall('post','/user/list',pagination,onSuccess,onFailed,onFinish)
   },
+  getListMenu(onSuccess,onFailed,onFinish){
+    apiCall('get','/menu/list',{},onSuccess,onFailed,onFinish)
+  },
 }
