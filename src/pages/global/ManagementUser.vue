@@ -368,7 +368,7 @@ export default {
   },
   methods:{
     showMenus(row){
-      this.$services.getListMenu((res)=>{
+      this.$services.getListMenu(row.id,(res)=>{
         this.menus = res.data
         this.menu.dialog = true
       },(e)=>{
@@ -383,7 +383,7 @@ export default {
     },
     confirmChangePassword(){
       this.password.loading = true
-      this.$services.updatePassword(this.password.id,this.password.password,(d)=>{
+      this.$services.addPassword({id:this.password.id,password:this.password.password},(d)=>{
         if(d.status===1){
           this.$services.logThis('Change Password for user '+this.password.id)
           this.password.dialog = false
@@ -470,7 +470,7 @@ export default {
     },
     confirmActive(){
       this.active.loading = true
-      this.$services.activateUser(this.active.id,(d)=>{
+      this.$services.changeUserStatus({id:this.active.id,active:true},(d)=>{
         this.$services.logThis('Activate User Management ID User '+this.active.id)
         this.getListUser()
       },(e)=>{
@@ -481,8 +481,8 @@ export default {
     },
     confirmDelete(){
       this.delete.loading = true
-      this.$services.deleteUser(this.delete.id,(d)=>{
-        this.$services.logThis('Delete User Management ID User '+this.delete.id)
+      this.$services.changeUserStatus({id:this.delete.id,active:false},(d)=>{
+        this.$services.logThis('Deactivate User Management ID User '+this.delete.id)
         this.getListUser()
       },(e)=>{
         this.delete.loading = false
