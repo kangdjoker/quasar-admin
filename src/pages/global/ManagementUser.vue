@@ -160,6 +160,10 @@
                 dark dense outlined color="white" round
                 v-model="edit.role"
                 :options="codes"
+                emit-value
+                option-label="code"
+                option-value="id"
+                map-options
                 label="Role"/>
             </q-item-section>
           </q-item>
@@ -182,10 +186,29 @@
                        label="Phone"/>
             </q-item-section>
           </q-item>
+          <q-item class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <q-item-section>
+              <q-select
+                dark dense outlined color="white" round
+                v-model="edit.id_department"
+                :options="departments"
+                emit-value
+                option-label="name"
+                option-value="id"
+                map-options
+                label="Department"/>
+            </q-item-section>
+          </q-item>
+          <q-item class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <q-item-section>
+              <q-input type="text" dark dense outlined color="white" round v-model="edit.position"
+                       label="Position"/>
+            </q-item-section>
+          </q-item>
         </q-card-section>
         <q-separator dark/>
         <q-card-actions align="right">
-          <q-btn flat label="Simpan" class="bg-green-8 text-white" @click="confirmEdit" :loading="this.edit.loading">
+          <q-btn flat label="Save" class="bg-green-8 text-white" @click="confirmEdit" :loading="this.edit.loading">
             <template v-slot:loading>
               <q-spinner-hourglass class="on-left" />
               Loading...
@@ -364,6 +387,8 @@ export default {
   components:{ConfirmationDialog},
   mounted() {
     this.getListUser()
+    this.getConstantRole()
+    this.getConstantDepartment()
     this.$services.logThis('Open User Management')
   },
   methods:{
@@ -498,11 +523,13 @@ export default {
     },
     showDialogEdit(row){
       this.edit.id = row.id
+      this.edit.id_department = row.id_department
+      this.edit.position = row.position
       this.edit.avatar = row.avatar
       this.edit.username = row.username
       this.edit.name = row.name
       this.edit.phone = row.phone
-      this.edit.role = row.code
+      this.edit.role = row.id_roles
       this.edit.file = null
       this.edit.progress = 0
       this.edit.dialog = true
@@ -516,6 +543,25 @@ export default {
       this.delete.id = row.id
       this.delete.loading = false
       this.delete.dialog = true
+    },
+    getConstantRole(){
+      this.$services.getConstantRole((res)=>{
+        res.data.forEach(function(data){
+          data.id = ''+data.id
+        })
+        this.codes = res.data;
+        // AppUtils.successNotification(this,JSON.stringify(this.codes))
+      },(err)=>{
+      },()=>{
+      })
+    },
+    getConstantDepartment(){
+      this.$services.getConstantDepartment((res)=>{
+        this.departments = res.data;
+        // AppUtils.successNotification(this,JSON.stringify(this.department))
+      },(err)=>{
+      },()=>{
+      })
     },
     getListUser(){
       this.userLoading = true
@@ -538,6 +584,7 @@ export default {
   },
   data(){
     let data = {
+      departments:[],
       menus:[],
       menuColumns:[
         {name: 'name', label: 'Name', field: row => row.name, format: val => `${val}`, sortable: false, align: 'left'},
@@ -549,7 +596,7 @@ export default {
         dialog:false
       },
       pagination:AppUtils.tableGetPagination(),
-      codes:['SuperAdmin','Admin','Operator'],
+      codes:[],
       password:{
         loading:false,
         dialog:false,
@@ -573,7 +620,8 @@ export default {
         username:null,
         name:null,
         phone:null,
-        password:null
+        password:null,
+        id_department:null
       },
       edit:{
         role:null,
@@ -586,7 +634,8 @@ export default {
         file:null,
         username:null,
         name:null,
-        phone:null
+        phone:null,
+        id_department:null
       },
       delete:{
         id:null,

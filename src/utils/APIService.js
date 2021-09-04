@@ -116,5 +116,14 @@ export default{
   },
   addPassword(param,onSuccess,onFailed,onFinish){
     apiCall('put','/user/password',param,onSuccess,onFailed,onFinish)
+  },
+  getConstantRole(onSuccess,onFailed,onFinish){
+    apiCall('get','/constant/role',{},onSuccess,onFailed,onFinish)
+  },
+  getConstantCompany(onSuccess,onFailed,onFinish){
+    apiCall('get','/constant/company',{},onSuccess,onFailed,onFinish)
+  },
+  getConstantDepartment(onSuccess,onFailed,onFinish){
+    apiCall('get','/constant/department',{},onSuccess,onFailed,onFinish)
   }
 }
