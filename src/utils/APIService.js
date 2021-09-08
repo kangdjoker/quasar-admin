@@ -125,5 +125,8 @@ export default{
   },
   getConstantDepartment(onSuccess,onFailed,onFinish){
     apiCall('get','/constant/department',{},onSuccess,onFailed,onFinish)
+  },
+  updateUser(param,onSuccess,onFailed,onFinish){
+    apiCall('patch','/user',param,onSuccess,onFailed,onFinish)
   }
 }
