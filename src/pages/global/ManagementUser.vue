@@ -465,7 +465,18 @@ export default {
     confirmEdit(){
       this.edit.loading = true
       let role = this.edit.role.toLowerCase();
-      this.$services.updateUser(this.edit.id,role,this.edit.avatar,this.edit.name,this.edit.phone,(d)=>{
+      //'name','phone','avatar','id_department','id_role','position','id'
+      let paramEdit= {
+          id:this.edit.id
+          ,name:this.edit.name
+          ,avatar:this.edit.avatar
+          ,id_department:this.edit.id_department
+          ,phone:this.edit.phone
+          ,id_role:this.edit.role
+          ,position:this.edit.position
+        };
+        console.log('ParamEdit',JSON.stringify(paramEdit))
+      this.$services.updateUser(paramEdit,(d)=>{
         this.$services.logThis('Edit User Management '+this.edit.name+' success')
         this.getListUser()
       },(e)=>{
@@ -635,7 +646,8 @@ export default {
         username:null,
         name:null,
         phone:null,
-        id_department:null
+        id_department:null,
+        position:null
       },
       delete:{
         id:null,
